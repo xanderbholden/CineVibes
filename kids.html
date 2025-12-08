@@ -1,0 +1,74 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Kids Movies - Cine Vibes</title>
+    <link rel="stylesheet" href="styles.css">
+</head>
+
+<body class="fade-in">
+
+<header>
+    <h1>Cine Vibes</h1>
+    <button id="goBackButton">⬅ Go Back</button>
+</header>
+
+<main>
+    <div class="content-container">
+
+        <h2>Find the Perfect Kid-Friendly Movie 🎈</h2>
+        <p class="section-description">
+            Choose a few options below and we'll pick the best movies for kids ages 0–12.
+        </p>
+
+        <div class="questions">
+
+            <!-- GENRE -->
+            <div class="question-box">
+                <label for="genreSelect">Favorite Genre:</label>
+                <select id="genreSelect">
+                    <option value="">Any Genre</option>
+                </select>
+            </div>
+
+            <!-- COMPANY -->
+            <div class="question-box">
+                <label for="companySelect">Favorite Production Company:</label>
+                <select id="companySelect">
+                    <option value="">Any Studio</option>
+                </select>
+            </div>
+
+            <!-- AGE CATEGORY -->
+            <div class="question-box">
+                <label for="ageSelect">How Old Is the Viewer?</label>
+                <select id="ageSelect">
+                    <option value="1900-1979">Classic (1900–1979)</option>
+                    <option value="1980-2009">Older (1980–2009)</option>
+                    <option value="2010-2025">Modern (2010–2025)</option>
+                </select>
+            </div>
+
+        </div>
+
+        <div class="button-group">
+            <button id="kidsFindBtn">Find Movie 🎬</button>
+            <button id="kidsLuckyBtn">Feeling Lucky 🍀</button>
+            <button onclick="clearResults()">Clear Results</button>
+        </div>
+
+        <div id="movieResults"></div>
+
+    </div>
+</main>
+
+<footer>
+    <p>Cine Vibes • Kid-Friendly Recommendations</p>
+</footer>
+
+<script src="utils.js"></script>
+<script src="kids.js"></script>
+
+</body>
+</html>

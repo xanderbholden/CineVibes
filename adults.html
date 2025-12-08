@@ -1,0 +1,72 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Adult Movies - Cine Vibes</title>
+    <link rel="stylesheet" href="styles.css">
+</head>
+
+<body class="fade-in">
+
+<header>
+    <h1>Cine Vibes</h1>
+    <button id="goBackButton">⬅ Go Back</button>
+</header>
+
+<main>
+    <div class="content-container">
+
+        <h2>Find a Movie for Ages 13+ 🎬</h2>
+        <p class="section-description">
+            Pick your preferences and we’ll suggest the best movies for teens & adults.
+        </p>
+
+        <div class="questions">
+
+            <!-- GENRE -->
+            <div class="question-box">
+                <label for="genreSelect">Favorite Genre:</label>
+                <select id="genreSelect">
+                    <option value="">Any Genre</option>
+                </select>
+            </div>
+
+            <!-- COMPANY -->
+            <div class="question-box">
+                <label for="companySelect">Favorite Production Studio:</label>
+                <select id="companySelect">
+                    <option value="">Any Studio</option>
+                </select>
+            </div>
+
+            <!-- DECADE -->
+            <div class="question-box">
+                <label for="yearSelect">Favorite Era / Decade:</label>
+                <select id="yearSelect">
+                    <option value="">Any Era</option>
+                </select>
+            </div>
+
+        </div>
+
+        <div class="button-group">
+            <button id="adultsFindBtn">Find Movie 🎬</button>
+            <button id="adultsLuckyBtn">Feeling Lucky 🍀</button>
+            <button onclick="clearResults()">Clear Results</button>
+        </div>
+
+        <div id="movieResults"></div>
+
+    </div>
+</main>
+
+<footer>
+    <p>Cine Vibes • Teen & Adult Recommendations</p>
+</footer>
+
+<script src="utils.js"></script>
+<script src="adults.js"></script>
+
+</body>
+</html>
