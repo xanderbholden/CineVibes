@@ -19,24 +19,25 @@
 
         <h2>Your Perfect Movie Match 🎬</h2>
         <p class="section-description">
-            Choose your preferences and we'll craft a personalized Top 5 just for you.
+            Choose your preferences and we’ll craft a personalized Top 5 based on advanced AI scoring.
         </p>
 
         <div class="questions">
 
-            <!-- MOOD -->
+            <!-- MOOD (AI-supported values only) -->
             <div class="question-box">
                 <label for="moodSelect">Mood:</label>
                 <select id="moodSelect">
                     <option value="">Any Mood</option>
-                    <option value="happy">Happy / Fun</option>
-                    <option value="adventure">Adventure</option>
-                    <option value="calm">Calm / Feel-Good</option>
+                    <option value="happy">Happy / Feel-Good</option>
                     <option value="excited">Excited / High Energy</option>
-                    <option value="fantasy">Fantasy / Magical</option>
-                    <option value="animals">Animals / Cute</option>
-                    <option value="family">Family Time</option>
-                    <option value="surprise">Surprise Me</option>
+                    <option value="romantic">Romantic</option>
+                    <option value="funny">Funny / Silly</option>
+                    <option value="scary">Scary / Horror</option>
+                    <option value="sad">Sad / Emotional</option>
+                    <option value="thrilling">Thrilling / Suspenseful</option>
+                    <option value="epic">Epic / Fantasy Adventure</option>
+                    <option value="dark">Dark / Serious / Gritty</option>
                 </select>
             </div>
 
@@ -48,19 +49,15 @@
                 </select>
             </div>
 
-            <!-- STUDIO -->
+            <!-- YEAR / ERA -->
             <div class="question-box">
-                <label for="companySelect">Favorite Studio:</label>
-                <select id="companySelect">
-                    <option value="">Any Studio</option>
-                </select>
-            </div>
-
-            <!-- DECADE -->
-            <div class="question-box">
-                <label for="yearSelect">Preferred Era / Decade:</label>
+                <label for="yearSelect">Preferred Era:</label>
                 <select id="yearSelect">
                     <option value="">Any Era</option>
+                    <option value="classic">Classic (pre-1980)</option>
+                    <option value="older">Older (1980–1999)</option>
+                    <option value="modern">Modern (2000–2015)</option>
+                    <option value="recent">Recent (2016–2025)</option>
                 </select>
             </div>
 
@@ -75,7 +72,7 @@
                 <label for="trendingToggle">Prefer Trending Movies?</label>
                 <select id="trendingToggle">
                     <option value="no">No Preference</option>
-                    <option value="yes">Yes, show trending movies</option>
+                    <option value="yes">Yes — show trending</option>
                 </select>
             </div>
 
