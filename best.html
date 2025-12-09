@@ -7,38 +7,96 @@
     <link rel="stylesheet" href="styles.css">
 </head>
 
-<body>
-    <button id="goBackButton">Back</button>
+<body class="fade-in">
 
-    <header>
-        <h1>Cine Vibes</h1>
-        <p class="subtitle">Find your perfect movie</p>
-    </header>
+<header>
+    <h1>Cine Vibes</h1>
+    <button id="goBackButton">⬅ Go Back</button>
+</header>
 
-    <main>
-        <div class="form-box">
-            <label>Mood</label>
-            <select id="moodSelect">
-                <option value="">Pick a mood</option>
-                <option value="happy">Happy</option>
-                <option value="excited">Excited</option>
-                <option value="romantic">Romantic</option>
-                <option value="scary">Scary</option>
-                <option value="funny">Funny</option>
-                <option value="sad">Sad</option>
-                <option value="thrilling">Thrilling</option>
-            </select>
+<main>
+    <div class="content-container">
 
-            <label>Genre</label>
-            <select id="genreSelect"></select>
+        <h2>Your Perfect Movie Match 🎬</h2>
+        <p class="section-description">
+            Choose your preferences and we'll craft a personalized Top 5 just for you.
+        </p>
 
-            <button class="primary" id="perfectFindBtn">Find My Movie</button>
+        <div class="questions">
+
+            <!-- MOOD -->
+            <div class="question-box">
+                <label for="moodSelect">Mood:</label>
+                <select id="moodSelect">
+                    <option value="">Any Mood</option>
+                    <option value="happy">Happy / Fun</option>
+                    <option value="adventure">Adventure</option>
+                    <option value="calm">Calm / Feel-Good</option>
+                    <option value="excited">Excited / High Energy</option>
+                    <option value="fantasy">Fantasy / Magical</option>
+                    <option value="animals">Animals / Cute</option>
+                    <option value="family">Family Time</option>
+                    <option value="surprise">Surprise Me</option>
+                </select>
+            </div>
+
+            <!-- GENRE -->
+            <div class="question-box">
+                <label for="genreSelect">Favorite Genre:</label>
+                <select id="genreSelect">
+                    <option value="">Any Genre</option>
+                </select>
+            </div>
+
+            <!-- STUDIO -->
+            <div class="question-box">
+                <label for="companySelect">Favorite Studio:</label>
+                <select id="companySelect">
+                    <option value="">Any Studio</option>
+                </select>
+            </div>
+
+            <!-- DECADE -->
+            <div class="question-box">
+                <label for="yearSelect">Preferred Era / Decade:</label>
+                <select id="yearSelect">
+                    <option value="">Any Era</option>
+                </select>
+            </div>
+
+            <!-- ACTOR -->
+            <div class="question-box">
+                <label for="actorInput">Favorite Actor (optional):</label>
+                <input id="actorInput" type="text" placeholder="Enter actor name">
+            </div>
+
+            <!-- TRENDING -->
+            <div class="question-box">
+                <label for="trendingToggle">Prefer Trending Movies?</label>
+                <select id="trendingToggle">
+                    <option value="no">No Preference</option>
+                    <option value="yes">Yes, show trending movies</option>
+                </select>
+            </div>
+
+        </div>
+
+        <div class="button-group">
+            <button id="perfectFindBtn" class="primary">Find My Movie 🎯</button>
+            <button onclick="clearResults()">Clear Results</button>
         </div>
 
         <div id="perfectResults"></div>
-    </main>
 
-    <script src="utils.js"></script>
-    <script src="best.js"></script>
+    </div>
+</main>
+
+<footer>
+    <p>Cine Vibes • Personalized Movie Matching</p>
+</footer>
+
+<script src="utils.js"></script>
+<script src="best.js"></script>
+
 </body>
 </html>

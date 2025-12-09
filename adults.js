@@ -1,125 +1,110 @@
 /* ============================================================
-   ADULTS PAGE LOGIC (13+)
+   ADULTS PAGE — TOP 5 ADVANCED PERSONALIZED ENGINE
 ============================================================ */
 
-// Make functions available globally
-window.findAdultMovies = findAdultMovies;
-window.adultsFeelingLucky = adultsFeelingLucky;
-window.clearResults = clearResults;
-
 document.addEventListener("DOMContentLoaded", () => {
-    console.log("adults.js LOADED");
+    console.log("adults.js loaded!");
 
-    // Load dropdown data
     loadGenres("genreSelect");
     loadCompanies("companySelect");
     loadDecades("yearSelect");
 
-    // Buttons
-    const findBtn = document.getElementById("adultsFindBtn");
+    const findBtn  = document.getElementById("adultsFindBtn");
     const luckyBtn = document.getElementById("adultsLuckyBtn");
 
-    findBtn.addEventListener("click", () => {
-        console.log("FindAdultMovies CLICKED");
-        findAdultMovies();
-    });
-
-    luckyBtn.addEventListener("click", () => {
-        console.log("AdultsFeelingLucky CLICKED");
-        adultsFeelingLucky();
-    });
+    findBtn.addEventListener("click", findAdultMovies);
+    luckyBtn.addEventListener("click", adultsFeelingLucky);
 });
 
 /* ============================================================
-   FIND ADULT MOVIES
+   MAIN ADULT MOVIE FINDER — TOP 5 BEST MATCHES
 ============================================================ */
 async function findAdultMovies() {
     showLoader("movieResults");
 
-    const mood     = document.getElementById("moodSelect").value;
-    const genre    = document.getElementById("genreSelect").value;
-    const company  = document.getElementById("companySelect").value;
-    const decade   = document.getElementById("yearSelect").value;
+    const mood    = document.getElementById("moodSelect").value;
+    const genre   = document.getElementById("genreSelect").value;
+    const company = document.getElementById("companySelect").value;
+    const decade  = document.getElementById("yearSelect").value;
+
+    const userChoices = { mood, genre, company, decade };
 
     let params = {
         language: "en-US",
         sort_by: "popularity.desc",
         include_adult: "true",
-        "vote_count.gte": "100",
+        "vote_count.gte": "80",
         "certification_country": "US",
-        "certification.gte": "PG-13" 
+        "certification.gte": "PG-13"
     };
 
-    if (genre) params.with_genres = genre;
-    if (company) params.with_companies = company;
-
+    // Apply decade filter
     if (decade) {
         const [start, end] = decade.split("-");
         params["primary_release_date.gte"] = `${start}-01-01`;
         params["primary_release_date.lte"] = `${end}-12-31`;
     }
 
-    // Mood boosting logic (optional simple weighting)
-    if (mood && mood !== "") {
-        params.with_keywords = getMoodKeywords(mood);
+    // Fetch a large pool for scoring accuracy
+    const pool = await fetchMoviesRaw(params);
+
+    // Score and sort movies
+    const scored = pool.map(movie => ({
+        movie,
+        score: calculateMatchScore(movie, userChoices, false) // ADULT mode
+    }));
+
+    // Remove movies with no match strength at all
+    const filtered = scored.filter(obj => obj.score > 0);
+
+    if (filtered.length === 0) {
+        document.getElementById("movieResults").innerHTML =
+            "<p>No strong matches found. Try adjusting your settings!</p>";
+        return;
     }
 
-    const results = await fetchMoviesRaw(params);
+    // Sort highest score → lowest
+    const topFive = filtered
+        .sort((a, b) => b.score - a.score)
+        .slice(0, 5);
 
-    displayMovieGrid(results.slice(0, 12), "movieResults");
+    // Display results in the Top-5 grid
+    buildTopFiveGrid(topFive, "movieResults", userChoices, false);
 }
 
 /* ============================================================
-   FEELING LUCKY (Adult Version)
+   FEELING LUCKY — RANDOM ADULT MATCH
 ============================================================ */
 async function adultsFeelingLucky() {
     showLoader("movieResults");
 
-    const randomPage = Math.floor(Math.random() * 30) + 1;
+    const randomPage = Math.floor(Math.random() * 20) + 1;
 
     let params = {
         language: "en-US",
         sort_by: "popularity.desc",
-        page: randomPage.toString(),
         include_adult: "true",
+        page: randomPage.toString(),
+        "vote_count.gte": "50",
         "certification_country": "US",
-        "certification.gte": "PG-13",
-        "vote_count.gte": "50"
+        "certification.gte": "PG-13"
     };
 
-    const results = await fetchMoviesRaw(params);
+    const pool = await fetchMoviesRaw(params);
 
-    if (!results || results.length === 0) {
-        displayMovieGrid([], "movieResults");
+    if (!pool || pool.length === 0) {
+        document.getElementById("movieResults").innerHTML =
+            "<p>Couldn't find anything at the moment — try again!</p>";
         return;
     }
 
-    const pick = results[Math.floor(Math.random() * results.length)];
+    // Pick something randomly
+    const pick = pool[Math.floor(Math.random() * pool.length)];
 
-    displayMovieGrid([pick], "movieResults");
-}
+    const display = [{
+        movie: pick,
+        score: 100
+    }];
 
-/* ============================================================
-   CLEAR RESULTS
-============================================================ */
-function clearResults() {
-    document.getElementById("movieResults").innerHTML = "";
-}
-
-/* ============================================================
-   MOOD → KEYWORD MAPPING (TMDB keyword IDs)
-============================================================ */
-function getMoodKeywords(mood) {
-    const map = {
-        happy: "1721, 15060",
-        adventure: "999, 9663",
-        calm: "1583, 12377",
-        excited: "430, 561",
-        thriller: "180547, 9715",
-        romantic: "1253, 14531",
-        dark: "180547, 9882",
-        surprise: "" // TMDB will randomize
-    };
-
-    return map[mood] || "";
+    buildTopFiveGrid(display, "movieResults", {}, false);
 }

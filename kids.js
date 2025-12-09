@@ -1,89 +1,105 @@
 /* ============================================================
-   KIDS PAGE LOGIC (0–12)
+   KIDS PAGE — TOP 5 PERSONALIZED ENGINE (SAFE MODE)
 ============================================================ */
 
 document.addEventListener("DOMContentLoaded", () => {
     console.log("kids.js loaded!");
 
-    // Populate dropdowns
+    // Load dropdown data
     loadGenres("genreSelect");
     loadCompanies("companySelect");
 
+    // Era selector already in kids.html (ageSelect)
     const findBtn = document.getElementById("kidsFindBtn");
     const luckyBtn = document.getElementById("kidsLuckyBtn");
 
-    if (findBtn) {
-        findBtn.addEventListener("click", findKidsMovies);
-    }
-
-    if (luckyBtn) {
-        luckyBtn.addEventListener("click", kidsFeelingLucky);
-    }
+    findBtn.addEventListener("click", findKidsMovies);
+    luckyBtn.addEventListener("click", kidsFeelingLucky);
 });
 
 /* ============================================================
-   MAIN KIDS SEARCH
+   MAIN KIDS MOVIE FINDER — TOP 5 BEST MATCHES
 ============================================================ */
 async function findKidsMovies() {
     showLoader("movieResults");
 
+    const mood    = document.getElementById("moodSelect").value;
     const genre   = document.getElementById("genreSelect").value;
     const company = document.getElementById("companySelect").value;
-    const ageBand = document.getElementById("ageSelect").value;
+    const era     = document.getElementById("ageSelect").value; // decade range
+
+    const userChoices = { mood, genre, company, decade: era };
 
     let params = {
         language: "en-US",
         sort_by: "popularity.desc",
-        "vote_count.gte": "50",
+        include_adult: "false",
+        "vote_count.gte": "40",
         "certification_country": "US",
         "certification.lte": "PG-13"
     };
 
-    if (genre) {
-        params.with_genres = genre;
+    // Apply era filter
+    if (userChoices.decade) {
+        const [start, end] = userChoices.decade.split("-");
+        params["primary_release_date.gte"] = `${start}-01-01`;
+        params["primary_release_date.lte"] = `${end}-12-31`;
     }
 
-    if (company) {
-        params.with_companies = company;
+    // Fetch large movie pool for scoring accuracy
+    const pool = await fetchMoviesRaw(params);
+
+    // Score each movie & filter unsafe content
+    const scored = pool
+        .map(movie => ({
+            movie,
+            score: calculateMatchScore(movie, userChoices, true) // kid mode
+        }))
+        .filter(obj => obj.score > 0);
+
+    if (scored.length === 0) {
+        document.getElementById("movieResults").innerHTML =
+            "<p>No suitable matches found. Try different settings!</p>";
+        return;
     }
 
-    if (ageBand) {
-        const [startYear, endYear] = ageBand.split("-");
-        params["primary_release_date.gte"] = `${startYear}-01-01`;
-        params["primary_release_date.lte"] = `${endYear}-12-31`;
-    }
+    // Sort by score DESC
+    const topFive = scored
+        .sort((a, b) => b.score - a.score)
+        .slice(0, 5);
 
-    const results = await fetchMoviesRaw(params);
-
-    displayMovieGrid(results.slice(0, 12), "movieResults");
+    // Display results
+    buildTopFiveGrid(topFive, "movieResults", userChoices, true);
 }
 
 /* ============================================================
-   FEELING LUCKY (Kids)
+   KIDS FEELING LUCKY — PICKS 1 RANDOM SAFE MOVIE
 ============================================================ */
 async function kidsFeelingLucky() {
     showLoader("movieResults");
 
-    const randomPage = Math.floor(Math.random() * 20) + 1;
-
-    const params = {
+    let params = {
         language: "en-US",
         sort_by: "popularity.desc",
-        "vote_count.gte": "50",
+        include_adult: "false",
+        "vote_count.gte": "40",
         "certification_country": "US",
-        "certification.lte": "PG-13",
-        page: randomPage.toString()
+        "certification.lte": "PG-13"
     };
 
-    const results = await fetchMoviesRaw(params);
+    const pool = await fetchMoviesRaw(params);
 
-    if (!results || results.length === 0) {
-        displayMovieGrid([], "movieResults");
-        return;
-    }
+    // Filter unsafe movies
+    const safePool = pool.filter(m =>
+        calculateMatchScore(m, {}, true) > 0
+    );
 
-    const randomIndex = Math.floor(Math.random() * results.length);
-    const pick = results[randomIndex];
+    const pick = safePool[Math.floor(Math.random() * safePool.length)];
 
-    displayMovieGrid([pick], "movieResults");
+    const display = [{
+        movie: pick,
+        score: 100
+    }];
+
+    buildTopFiveGrid(display, "movieResults", {}, true);
 }
