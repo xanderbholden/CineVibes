@@ -9,23 +9,44 @@
 
 <body class="fade-in">
 
-<header class="hero-header">
-    <h1 class="hero-title">Cine Vibes</h1>
-    <p class="hero-tagline">Discover the perfect movie for this moment 🎬</p>
+<header>
+    <h1>Cine Vibes</h1>
+    <p class="subtitle">Discover the perfect movie for any moment 🎬</p>
 </header>
 
 <main>
-    <div class="hero-buttons">
-        <button id="kidsBtn" class="hero-btn">Kids (0–12)</button>
-        <button id="adultsBtn" class="hero-btn">Adults (13+)</button>
-        <button id="perfectBtn" class="hero-btn primary">Find My Perfect Movie ⭐</button>
+    <div class="content-container">
+
+        <!-- HOME PAGE BUTTON ROW (Centered) -->
+        <div class="home-button-row">
+            <button id="kidsBtn" class="secondary">Kids (0–12)</button>
+            <button id="adultsBtn" class="secondary">Adults (13+)</button>
+            <button id="perfectBtn" class="primary">
+                Find My Perfect Movie ⭐
+            </button>
+        </div>
+
     </div>
 </main>
 
-<footer></footer>
+<footer>
+    <p>Cine Vibes • Personalized Movie Matching</p>
+</footer>
 
-<script src="utils.js"></script>
-<script src="index.js"></script>
+<!-- Navigation Script -->
+<script>
+    document.getElementById("kidsBtn").addEventListener("click", () => {
+        window.location.href = "kids.html";
+    });
+
+    document.getElementById("adultsBtn").addEventListener("click", () => {
+        window.location.href = "adults.html"; // FIXED: Correct filename
+    });
+
+    document.getElementById("perfectBtn").addEventListener("click", () => {
+        window.location.href = "best.html";
+    });
+</script>
 
 </body>
 </html>
