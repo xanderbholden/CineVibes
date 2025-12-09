@@ -19,10 +19,26 @@
 
         <h2>Find the Perfect Kid-Friendly Movie 🎈</h2>
         <p class="section-description">
-            Choose a few options below and we'll pick the best movies for kids ages 0–12.
+            Choose a few options below and we’ll pick the best movies for kids ages 0–12.
         </p>
 
         <div class="questions">
+
+            <!-- MOOD -->
+            <div class="question-box">
+                <label for="moodSelect">Mood:</label>
+                <select id="moodSelect">
+                    <option value="">Any Mood</option>
+                    <option value="happy">Happy / Silly</option>
+                    <option value="adventure">Adventure</option>
+                    <option value="calm">Calm / Feel-Good</option>
+                    <option value="excited">Excited</option>
+                    <option value="fantasy">Magical / Fantasy</option>
+                    <option value="animals">Animals</option>
+                    <option value="family">Family Time</option>
+                    <option value="surprise">Surprise Me</option>
+                </select>
+            </div>
 
             <!-- GENRE -->
             <div class="question-box">
@@ -34,15 +50,15 @@
 
             <!-- COMPANY -->
             <div class="question-box">
-                <label for="companySelect">Favorite Production Company:</label>
+                <label for="companySelect">Favorite Studio:</label>
                 <select id="companySelect">
                     <option value="">Any Studio</option>
                 </select>
             </div>
 
-            <!-- AGE CATEGORY -->
+            <!-- AGE -->
             <div class="question-box">
-                <label for="ageSelect">How Old Is the Viewer?</label>
+                <label for="ageSelect">Movie Era:</label>
                 <select id="ageSelect">
                     <option value="1900-1979">Classic (1900–1979)</option>
                     <option value="1980-2009">Older (1980–2009)</option>
@@ -53,7 +69,7 @@
         </div>
 
         <div class="button-group">
-            <button id="kidsFindBtn">Find Movie 🎬</button>
+            <button id="kidsFindBtn" class="primary">Find Movies 🎬</button>
             <button id="kidsLuckyBtn">Feeling Lucky 🍀</button>
             <button onclick="clearResults()">Clear Results</button>
         </div>

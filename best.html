@@ -3,117 +3,42 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Perfect Movie Match - Cine Vibes</title>
+    <title>Perfect Match – Cine Vibes</title>
     <link rel="stylesheet" href="styles.css">
 </head>
 
-<body class="fade-in">
+<body>
+    <button id="goBackButton">Back</button>
 
-<header>
-    <h1>Cine Vibes</h1>
-    <button id="goBackButton">⬅ Go Back</button>
-</header>
+    <header>
+        <h1>Cine Vibes</h1>
+        <p class="subtitle">Find your perfect movie</p>
+    </header>
 
-<main>
-    <div class="content-container">
+    <main>
+        <div class="form-box">
+            <label>Mood</label>
+            <select id="moodSelect">
+                <option value="">Pick a mood</option>
+                <option value="happy">Happy</option>
+                <option value="excited">Excited</option>
+                <option value="romantic">Romantic</option>
+                <option value="scary">Scary</option>
+                <option value="funny">Funny</option>
+                <option value="sad">Sad</option>
+                <option value="thrilling">Thrilling</option>
+            </select>
 
-        <h2>Find the Perfect Movie for This Moment 🎬</h2>
-        <p class="section-description">
-            Answer a few quick questions and we’ll generate your Top 5 matches.
-        </p>
+            <label>Genre</label>
+            <select id="genreSelect"></select>
 
-        <div class="questions">
-
-            <!-- MOOD -->
-            <div class="question-box">
-                <label for="moodSelect">What mood are you in?</label>
-                <select id="moodSelect">
-                    <option value="">Any Mood</option>
-                    <option value="happy">Happy</option>
-                    <option value="excited">Excited / Action</option>
-                    <option value="romantic">Romantic</option>
-                    <option value="scary">Scary</option>
-                    <option value="funny">Funny</option>
-                    <option value="sad">Sad / Emotional</option>
-                    <option value="mysterious">Mysterious</option>
-                    <option value="chill">Chill / Feel-Good</option>
-                    <option value="adventure">Adventure</option>
-                    <option value="thrilling">Thrilling</option>
-                    <option value="family">Family-Friendly</option>
-                    <option value="smart">Smart / Thought-Provoking</option>
-                    <option value="dark">Dark</option>
-                    <option value="comfort">Comfort Movie</option>
-                    <option value="epic">Epic / Grand</option>
-                    <option value="true">Based on True Story</option>
-                </select>
-            </div>
-
-            <!-- GENRE -->
-            <div class="question-box">
-                <label for="genreSelect">Preferred Genre:</label>
-                <select id="genreSelect">
-                    <option value="">Any Genre</option>
-                </select>
-            </div>
-
-            <!-- ACTOR -->
-            <div class="question-box">
-                <label for="actorInput">Favorite Actor (optional):</label>
-                <input id="actorInput" type="text" placeholder="Type an actor's name...">
-            </div>
-
-            <!-- RUNTIME -->
-            <div class="question-box">
-                <label for="runtimeSelect">Preferred Runtime:</label>
-                <select id="runtimeSelect">
-                    <option value="">Any Runtime</option>
-                    <option value="short">Under 90 Minutes</option>
-                    <option value="medium">90–120 Minutes</option>
-                    <option value="long">120+ Minutes</option>
-                </select>
-            </div>
-
-            <!-- ERA -->
-            <div class="question-box">
-                <label for="eraSelect">Favorite Era:</label>
-                <select id="eraSelect">
-                    <option value="">Any Era</option>
-                    <option value="classic">Classic (before 1980)</option>
-                    <option value="older">Older (1980–1999)</option>
-                    <option value="modern">Modern (2000–2015)</option>
-                    <option value="recent">Recent (2016–2025)</option>
-                </select>
-            </div>
-
-            <!-- TRENDING -->
-            <div class="question-box">
-                <label for="trendingToggle">Prefer Trending Movies?</label>
-                <select id="trendingToggle">
-                    <option value="">Either</option>
-                    <option value="yes">Yes, trending</option>
-                    <option value="no">No preference</option>
-                </select>
-            </div>
-
+            <button class="primary" id="perfectFindBtn">Find My Movie</button>
         </div>
 
-        <div class="button-group">
-            <button id="perfectFindBtn" class="primary">Find My Top 5 Picks ⭐</button>
-            <button onclick="clearResults()">Clear Results</button>
-        </div>
-
-        <!-- RESULTS -->
         <div id="perfectResults"></div>
+    </main>
 
-    </div>
-</main>
-
-<footer>
-    <p>Cine Vibes • Perfect Movie Recommendations</p>
-</footer>
-
-<script src="utils.js"></script>
-<script src="best.js"></script>
-
+    <script src="utils.js"></script>
+    <script src="best.js"></script>
 </body>
 </html>

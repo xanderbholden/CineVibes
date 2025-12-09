@@ -23,7 +23,6 @@ document.addEventListener("DOMContentLoaded", () => {
 
 /* ============================================================
    MAIN KIDS SEARCH
-   Kid-friendly: G, PG, PG-13 (K3 style)
 ============================================================ */
 async function findKidsMovies() {
     showLoader("movieResults");
@@ -55,7 +54,7 @@ async function findKidsMovies() {
     }
 
     const results = await fetchMoviesRaw(params);
-    // Show up to 12 results for kids
+
     displayMovieGrid(results.slice(0, 12), "movieResults");
 }
 
@@ -65,7 +64,6 @@ async function findKidsMovies() {
 async function kidsFeelingLucky() {
     showLoader("movieResults");
 
-    // Random popular kid-friendly page
     const randomPage = Math.floor(Math.random() * 20) + 1;
 
     const params = {

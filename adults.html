@@ -17,12 +17,28 @@
 <main>
     <div class="content-container">
 
-        <h2>Find a Movie for Ages 13+ 🎬</h2>
+        <h2>Find the Perfect Teen & Adult Movie 🎬</h2>
         <p class="section-description">
-            Pick your preferences and we’ll suggest the best movies for teens & adults.
+            Choose a few options below and we’ll recommend the best movies for ages 13 and up.
         </p>
 
         <div class="questions">
+
+            <!-- MOOD -->
+            <div class="question-box">
+                <label for="moodSelect">Mood:</label>
+                <select id="moodSelect">
+                    <option value="">Any Mood</option>
+                    <option value="happy">Happy / Feel Good</option>
+                    <option value="adventure">Adventure</option>
+                    <option value="calm">Calm / Relaxed</option>
+                    <option value="excited">High Energy / Exciting</option>
+                    <option value="thriller">Thriller / Suspense</option>
+                    <option value="romantic">Romantic</option>
+                    <option value="dark">Dark / Intense</option>
+                    <option value="surprise">Surprise Me</option>
+                </select>
+            </div>
 
             <!-- GENRE -->
             <div class="question-box">
@@ -34,7 +50,7 @@
 
             <!-- COMPANY -->
             <div class="question-box">
-                <label for="companySelect">Favorite Production Studio:</label>
+                <label for="companySelect">Favorite Studio:</label>
                 <select id="companySelect">
                     <option value="">Any Studio</option>
                 </select>
@@ -42,16 +58,23 @@
 
             <!-- DECADE -->
             <div class="question-box">
-                <label for="yearSelect">Favorite Era / Decade:</label>
+                <label for="yearSelect">Movie Era:</label>
                 <select id="yearSelect">
-                    <option value="">Any Era</option>
+                    <option value="1950-1959">1950–1959</option>
+                    <option value="1960-1969">1960–1969</option>
+                    <option value="1970-1979">1970–1979</option>
+                    <option value="1980-1989">1980–1989</option>
+                    <option value="1990-1999">1990–1999</option>
+                    <option value="2000-2009">2000–2009</option>
+                    <option value="2010-2019">2010–2019</option>
+                    <option value="2020-2025">2020–2025</option>
                 </select>
             </div>
 
         </div>
 
         <div class="button-group">
-            <button id="adultsFindBtn">Find Movie 🎬</button>
+            <button id="adultsFindBtn" class="primary">Find Movies 🎬</button>
             <button id="adultsLuckyBtn">Feeling Lucky 🍀</button>
             <button onclick="clearResults()">Clear Results</button>
         </div>
